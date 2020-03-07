@@ -50,10 +50,11 @@ prepare::
 # the provider (e.g. x.y.z-dev-... instead of x.y.zdev...)
 build:: tfgen provider
 	for LANGUAGE in "nodejs" "python" "go" "dotnet" ; do \
-		$(TFGEN) $$LANGUAGE --overlays overlays/$$LANGUAGE/ --out ${PACKDIR}/$$LANGUAGE/ || exit 3 ; \
+		~/go/bin/$(TFGEN) $$LANGUAGE --overlays overlays/$$LANGUAGE/ --out ${PACKDIR}/$$LANGUAGE/ || exit 3 ; \
 	done
 	cd ${PACKDIR}/nodejs/ && \
 		yarn install && \
+		find . -type f -name 'get*.ts' -exec sed -i '' -e "s/\(return .*\)/\1 }/g" {} + && \
 		yarn run tsc && \
 		cp ../../README.md ../../LICENSE package.json yarn.lock ./bin/ && \
 		sed -i.bak "s/\$${VERSION}/$(VERSION)/g" ./bin/package.json
