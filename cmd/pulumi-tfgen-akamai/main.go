@@ -15,7 +15,7 @@
 package main
 
 import (
-	"github.com/pulumi/pulumi-terraform-bridge/pkg/tfgen"
+	"github.com/pulumi/pulumi-terraform/pkg/tfgen"
 
 	akamai "github.com/pulumi/pulumi-akamai"
 	"github.com/pulumi/pulumi-akamai/pkg/version"
